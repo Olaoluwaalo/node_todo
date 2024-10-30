@@ -1,4 +1,4 @@
-const bcrypt = require("bcrypt");
+const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken')
 const UserModel = require('../models/user_model');
 exports.register = async (req, res, next) => {
@@ -28,7 +28,7 @@ exports.login = async (req, res, next) => {
     if (!user) {
         return res.status(400).json({ msg: "User Does not exist" });
     }
-    const isMatch = await bcrypt.compare(password, user.password,);
+    const isMatch = await bcrypt.compareSync(password, user.password,);
     if (isMatch === false) {
 
         return res.status(400).json({ msg: 'User password does not exist' });
